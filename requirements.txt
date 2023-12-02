@@ -1,0 +1,12 @@
+
+#pip install -r requirements.txt
+
+numpy
+pandas
+torch 
+torchvision
+tqdm
+matplotlib
+jupyter
+#ipywidgets #widgetsnbextension pandas-profiling
+einops

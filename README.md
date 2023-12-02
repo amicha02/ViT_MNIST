@@ -1,2 +1,1 @@
-# vit_mnist
-ViT for MNIST 
+Initial committ
