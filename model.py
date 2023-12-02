@@ -31,6 +31,8 @@ class FeedForward(nn.Module):
 
     def forward(self, x):
         return self.net(x)
+    
+
 class Attention(nn.Module):
     def __init__(self, dim, heads=8):
         super().__init__()
@@ -60,6 +62,8 @@ class Attention(nn.Module):
         out = rearrange(out, 'b h n d -> b n (h d)')
         out =  self.to_out(out)
         return out
+    
+
 class Transformer(nn.Module):
     def __init__(self, dim, depth, heads, mlp_dim):
         super().__init__()
@@ -75,6 +79,8 @@ class Transformer(nn.Module):
             x = attn(x, mask=mask)
             x = ff(x)
         return x
+
+
 
 class ViT(nn.Module):
     def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim, channels=3):
@@ -97,6 +103,7 @@ class ViT(nn.Module):
             nn.GELU(),
             nn.Linear(mlp_dim, num_classes)
         )
+        print(self.mlp_head)
 
     def forward(self, img, mask=None):
         p = self.patch_size
