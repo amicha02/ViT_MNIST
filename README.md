@@ -34,7 +34,7 @@ Positional embeddings are used to provide spatial information to the model. Ther
 - `patch_dim`: The dimensionality of each image patch feature, calculated based on `channels` and `patch_size`.
 - `cls_token`: Learnable classification token used to aggregate information from different patches.
 
-## ViT _init__ breakdown
+## ViT \__init__ breakdown
 - [nn.Parameter](https://pytorch.org/docs/stable/generated/torch.nn.parameter.Parameter.html) \
     In PyTorch, when you're building a neural network, you often have some values (parameters) that the network needs to learn during training. These could be things like weights in the layers of your network.
 
@@ -46,3 +46,25 @@ $$ y = {xA^T + b } $$
 
 
 ## ViT Forward breakdown
+
+- Rearrange\
+ The dimensionality of the batch of images is rearranged from  `(BATCH_SIZE_TRAIN, 1,28,28)` to `(BATCH_SIZE_TRAIN,num_patches,path_size*path_size)`
+ -  Patch to embedding\
+The <strong>dim</strong> number of output features, which is the desired dimension of the embedding space for each patch. For this example, its value is hardcoded to 64. This creates a linear transformation layer in PyTorch. In this specific context, it is used to transform the image patches into the embedding space of the transformer. The output is `(BATCH_SIZE_TRAIN, num_patches, 64)`. 
+- <strong>Class Token</strong>\
+    This line creates a learnable parameter representing a class token in the Vision Transformer (ViT) model. In the context of transformers, including ViT, class tokens are used to represent the entire input sequence or image. They are treated as additional tokens and are usually concatenated with the learned embeddings of the input patches. The dimensionality of this is `(BATCH_SIZE_TRAIN,1,dim (=64))`. This creates a tensor of shape `(1, 1, dim)` filled with random values drawn from a normal distribution (mean=0, std=1). The <strong>dim</strong> here is the dimensionality of the embedding space for the class token. In the provided code is using the expand method to replicate the class token along the batch dimension. 
+- <strong>Concatenate Tokens & Patch Embeddings</strong>\
+The line `x = torch.cat((cls_tokens, x), dim=1)` concatenates the class tokens (`cls_tokens`) with the patch embeddings (`x`) along the specified dimension (`dim=1`). Let's break down this line:After this concatenation, `x` will have a shape of `(batch_size, num_patches + 1, dim)`. The `+1` in the second dimension is due to the inclusion of the class token for each example in the batch.
+- <strong></strong>
+- <strong></strong>
+- <strong></strong>
+- <strong></strong>
+
+
+- <strong></strong>
+
+
+ 
+
+
+  
